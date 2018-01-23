@@ -1,0 +1,157 @@
+#!/usr/bin/env node
+/** @author xujw 2018-1-22
+ * v3 init 命令完成v3项目初始化工作 */
+const program = require('commander');
+/* 获取命令行工具 */
+const exec = require('child_process').exec;
+var fs = require("fs");
+/* 获取当前命令行路径 */
+const cmdPath=process.cwd();
+/* 获取当前模块安装目录, __dirname为本js文件目录,需要退一层目录*/
+const modulePath = __dirname.substr(0,__dirname.lastIndexOf('\\'));
+/* 获取模板配置 */
+const pakconftmpl = require('../template/package.json');
+/* 交互式命令行工具 */
+const prompt = require('inquirer').prompt;
+ /* 尝试读取命令行目录下的package.json文件 */
+ var packcof;
+ try{
+  packcof=require(cmdPath+"\\package.json");
+ }catch(e){
+  packcof = undefined;
+ }
+/* 当前执行的命令是否带有选项,默认为false */
+var hasOption = false;
+/* 添加子命令的选项 */
+program
+  .usage('[命令选项]')
+  .option('-n, --new', '新建一个V3项目并初始化',createProject)
+  .option('-c,--convert', '将一个已有的项目转换为V3项目',convert)
+  .on('--help',help).parse(process.argv);
+
+/* 没有输入命令选项时执行 */
+if(!hasOption){
+  /* 判断配置文件是否存在 */
+  if(packcof){
+   prompt([{
+      type: 'confirm',
+      message: '当前目录发现package.json,是否要转换为V3项目?',
+      name: 'ok'
+    }]).then(answers => {
+      if (answers.ok) {
+        convert();
+      }else{
+        console.log('操作已取消!');
+      }
+    });
+  }else{
+    prompt([{
+      type: 'confirm',
+      message: '当前目录不存在package.json,是否要新建V3项目?',
+      name: 'ok'
+    }]).then(answers => {
+      if (answers.ok) {
+        createProject();
+      }else{
+        console.log('操作已取消!');
+      }
+    });
+  }
+}
+
+
+/* 子命令帮助说明 */
+function help(){
+  console.log();
+  console.log('1.要建立全新V3项目请输入 v3 init -n或v3 init --new');
+  console.log('2.要将现有的项目转换为v3项目请输入v3 init -c或v3 init --convert');
+}
+/**
+ * 执行 v3 init -n 时的回调方法,通过命令行将模板复制到新项目路径 
+ */
+function createProject(){
+  hasOption = true;
+  console.log('项目构建中请稍后......');
+  console.log();
+  var cmdStr = 'xcopy '+modulePath+'\\template  '+cmdPath+' /s /h /y';
+  exec(cmdStr, function(err,stdout,stderr){
+    if(err) {
+      console.log('项目构建失败!');
+      console.log(err);
+    }else{
+      console.log('项目构建完成.');
+      fastSetting();
+    }
+  });
+  
+}
+/* 快速项目配置*/
+function fastSetting(){
+  prompt([{
+    type: 'confirm',
+    message: '是否要进行快速配置?',
+    name: 'ok'
+  }]).then(answers => {
+    if (answers.ok) {
+      settingMenu();
+    }else{
+      console.log('已跳过项目快速配置.');
+      runPackageInstall();
+    }
+  });
+}
+/* 快速项目配置的提问菜单 */
+function settingMenu(){
+  var fastSettingQuestion=require(__dirname+'\\fastSettingQuestion');
+  prompt(fastSettingQuestion).then(answers=>{
+    var v3Platform = pakconftmpl.v3Platform;
+    pakconftmpl.name = answers.name;
+    v3Platform.type = answers.type;
+    v3Platform.matchVersion = answers.matchVersion;
+    v3Platform.account=answers.account;
+    v3Platform.pwd=answers.pwd;
+    v3Platform.out=answers.out;
+    v3Platform.libType=answers.libType;
+    v3Platform.server=answers.server;
+    storeConfig(pakconftmpl);
+    runPackageInstall();
+  })
+}
+/* 执行npm install命令给项目添加依赖 */
+function runPackageInstall(){
+  var cmdStr = 'npm --registry https://registry.npm.taobao.org install';
+  console.log('>'+cmdStr);
+  console.log('正在初始化npm依赖,请稍后.....');
+  exec(cmdStr, function(err,stdout,stderr){
+    console.log(stdout);
+    if(err) {
+      console.log(err);
+    }else{
+      console.log('依赖添加完成!');
+    }
+  });
+}
+/**
+ * 转换配置文件为v3项目配置,向当前项目的package.json中添加v3Platform配置节点
+ */
+function convert(){
+  hasOption = true;
+  if(packcof){
+    packcof.v3Platform = pakconftmpl.v3Platform;
+    storeConfig(packcof);
+  }else{
+    console.log('当前目录下未找到package.json,转换失败.');
+  }
+}
+/* 保存配置文件到当前项目根路径 */
+function storeConfig(config){
+  try{
+    fs.writeFileSync(cmdPath+"\\package.json",JSON.stringify(config,null, "\t"));
+  }catch(e){
+    console.log(e);
+    console.log('package.json文件写入失败!');
+    return false;
+    }
+  console.log('项目配置已更新,请打开package.json文件进行详细设置.');
+  return true;
+}

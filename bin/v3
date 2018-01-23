@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+/**
+ * @author xujw  2018年1月22日
+ */
+require('commander')
+    .version(require('../package').version, '-v, --version')
+    .usage('<命令> [命令选项]')
+    .command('init', '初始化')
+    .command('install', '打包并安装v3平台插件到本地')
+    .command('deploy', '打包v3平台插件并部署到Vstore')
+    .command('update', '更新插件到V3服务器')
+    .command('sync', "同步V3服务器中的Nodejs插件到本地")
+    .parse(process.argv);

@@ -1,0 +1,10 @@
+exports.DEFAULT_GROUP_ID = "com.toone.v3.platform";
+exports.ARTIFACT_PREFIX = "vjs.framework.extension.platform.custom.";
+exports.TAG_AFTIFACT_PREFIX = "vjs.framework.extension.platform.custom.tag.";
+exports.DEPLOY_URL = "http://www.toone.com.cn:8808/module-operation!executeOperation?operation=AddCodePartToVStore";
+exports.PAGE_RESOURCE_DIR = "resources/page/itop/common/extension/custom/";
+exports.SETTING_PLUGIN_TGZ_DIR = "resources/setting/itop/npm/extension/custom/";
+exports.DEFAULT_PLUGIN_DIR = "target";
+exports.PLUGIN_METADATA_NAME = "vplatform-plugin-metadata.xml";
+exports.BUNDLE_UPDATE_SERVLET = "/system/console/updatemanager";
+exports.PLUGIN_DOWNLOAD_URL = "/module-operation!executeOperation?operation=ExtensionDownload";

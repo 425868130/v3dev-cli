@@ -1,0 +1,44 @@
+{
+    "name": "v3project",
+    "version": "1.0.0",
+    "description": "v3项目",
+    "main": "index.js",
+    "scripts": {
+        "build": "webpack",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "作者",
+    "license": "ISC",
+    "dependencies": {
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.2",
+        "babel-preset-es2015": "^6.24.1",
+        "css-loader": "^0.28.7",
+        "iview": "^2.7.3",
+        "vue": "^2.5.2",
+        "vue-loader": "^13.3.0",
+        "vue-router": "^3.0.1",
+        "vue-template-compiler": "^2.5.2"
+    },
+    "devDependencies": {
+        "webpack": "^3.10.0"
+    },
+    "v3Platform": {
+        "type": "插件类型：{控件，规则，函数}",
+        "matchVersion": "匹配的版本号",
+        "minMatchVersion": "最小匹配版本号",
+        "account": "Vstore账号",
+        "pwd": "Vstore密码",
+        "out": "jar生成目录",
+        "sources": "vui源目录（数组）",
+        "libType": "部署库：{dev，test}",
+        "server": "本地环境地址",
+        "componentDefines": {
+            "vuiTreeExtra": {
+                "dataProp": "数据源属性名",
+                "dataType": "数据类型",
+                "treeStructProp": "fieldMapping"
+            }
+        }
+    }
+}
