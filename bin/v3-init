@@ -16,7 +16,7 @@ const prompt = require('inquirer').prompt;
  /* 尝试读取命令行目录下的package.json文件 */
  var packcof;
  try{
-  packcof=require(cmdPath+"\\package.json");
+  packcof=require(cmdPath+"/package.json");
  }catch(e){
   packcof = undefined;
  }
@@ -80,46 +80,41 @@ function createProject(){
       console.log(err);
     }else{
       console.log('项目构建完成.');
-      fastSetting();
+      fastSetting(pakconftmpl);
     }
   });
   
 }
 /* 快速项目配置*/
-function fastSetting(){
+function fastSetting(config){
   prompt([{
     type: 'confirm',
     message: '是否要进行快速配置?',
     name: 'ok'
   }]).then(answers => {
     if (answers.ok) {
-      settingMenu();
+      settingMenu(config);
     }else{
-      console.log('已跳过项目快速配置.');
+      console.log('已跳过项目快速配置,请打开package.json文件进行详细设置.');
       runPackageInstall();
     }
   });
 }
 /* 快速项目配置的提问菜单 */
-function settingMenu(){
-  var fastSettingQuestion=require(__dirname+'\\fastSettingQuestion');
+function settingMenu(config){
+  var fastSettingQuestion=require('./fastSettingQuestion');
   prompt(fastSettingQuestion).then(answers=>{
-    var v3Platform = pakconftmpl.v3Platform;
-    pakconftmpl.name = answers.name;
-    v3Platform.type = answers.type;
-    v3Platform.matchVersion = answers.matchVersion;
-    v3Platform.account=answers.account;
-    v3Platform.pwd=answers.pwd;
-    v3Platform.out=answers.out;
-    v3Platform.libType=answers.libType;
-    v3Platform.server=answers.server;
-    storeConfig(pakconftmpl);
-    runPackageInstall();
+    config.name = answers.name;
+    config.v3Platform=answers.v3;
+   if(storeConfig(config)){
+     console.log('已完成快速配置,更多详细配置请打开package.json文件.');
+   }
+   runPackageInstall();
   })
 }
 /* 执行npm install命令给项目添加依赖 */
 function runPackageInstall(){
-  var cmdStr = 'npm --registry https://registry.npm.taobao.org install';
+  var cmdStr = 'npm --registry https://registry.npm.taobao.org install --ignore-scripts';
   console.log('>'+cmdStr);
   console.log('正在初始化npm依赖,请稍后.....');
   exec(cmdStr, function(err,stdout,stderr){
@@ -138,7 +133,16 @@ function convert(){
   hasOption = true;
   if(packcof){
     packcof.v3Platform = pakconftmpl.v3Platform;
+    /* 添加npm命令以提供局部安装时使用 */
+    packcof.scripts.v3init = "v3 init";
+    packcof.scripts.v3init_n = "v3 init -n";
+    packcof.scripts.v3deploy ="v3 deploy";
+    packcof.scripts.v3install="v3 install";
+    packcof.scripts.v3sync = "v3 sync";
+    packcof.scripts.v3update = "v3 update";
+    packcof.chromiumpath="Chromium核心的Chromium浏览器(推荐)或chrome浏览器的路径地址";
     storeConfig(packcof);
+    fastSetting(packcof);
   }else{
     console.log('当前目录下未找到package.json,转换失败.');
   }
@@ -152,6 +156,5 @@ function storeConfig(config){
     console.log('package.json文件写入失败!');
     return false;
     }
-  console.log('项目配置已更新,请打开package.json文件进行详细设置.');
   return true;
 }

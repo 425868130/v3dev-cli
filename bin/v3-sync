@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+/**
+ * @author xujw 2018-1-23
+ * 同步V3服务器中的Nodejs插件到本地
+ */
+console.log('同步V3服务器中的Node.js插件到本地,请稍候...')
+var run=require('./common');
+run('sync').start();

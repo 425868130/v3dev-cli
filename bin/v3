@@ -9,5 +9,5 @@ require('commander')
     .command('install', '打包并安装v3平台插件到本地')
     .command('deploy', '打包v3平台插件并部署到Vstore')
     .command('update', '更新插件到V3服务器')
-    .command('sync', "同步V3服务器中的Nodejs插件到本地")
+    .command('sync', "同步V3服务器中的Node.js插件到本地")
     .parse(process.argv);

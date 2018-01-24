@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+/**
+ * @author xujw 2018-1-23
+ * 更新插件到V3服务器
+ */
+console.log("更新插件到V3服务器,请稍候...");
+var run=require('./common');
+run('updateToServer').start();

@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+/**
+ * @author xujw 2018-1-23
+ * 打包v3平台插件并部署到Vstore
+ */
+console.log("打包v3平台插件并部署到Vstore,请稍候...");
+var run=require('./common');
+run('deploy').start();

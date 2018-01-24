@@ -1,6 +1,6 @@
 {
   "name": "v3dev-cli",
-  "version": "1.0.1",
+  "version": "1.0.10",
   "description": "vui 二次开发脚手架",
   "preferGlobal": true,
   "bin": {
@@ -12,7 +12,7 @@
     "v3-sync": "bin/v3-sync"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install": "node install.js"
   },
   "keywords": [
     "v3",
@@ -31,29 +31,10 @@
     "decompress-zip": "^0.3.0",
     "inquirer": "^5.0.1",
     "needle": "^2.0.1",
-    "puppeteer": "^1.0.0",
     "q": "^1.5.1",
     "xml2js": "^0.4.19"
   },
   "engines": {
     "node": ">=6.0.0"
-  },
-  "v3Platform": {
-    "type": "插件类型：{控件，规则，函数}",
-    "matchVersion": "匹配的版本号",
-    "minMatchVersion": "最小匹配版本号",
-    "account": "Vstore账号",
-    "pwd": "Vstore密码",
-    "out": "jar生成目录",
-    "sources": "vui源目录（数组）",
-    "libType": "部署库：{dev，test}",
-    "server": "本地环境地址",
-    "componentDefines": {
-      "vuiTreeExtra": {
-        "dataProp": "数据源属性名",
-        "dataType": "数据类型",
-        "treeStructProp": "fieldMapping"
-      }
-    }
   }
 }

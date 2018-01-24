@@ -69,6 +69,7 @@ InstallTask.prototype.search = function(sources){
 	var libs = [];
 	for(var i=0,l=sources.length;i<l;i++){
 		var path = pathUtils.toPluginPath(sources[i]);
+		console.log(path);
 		if(fs.existsSync(path)){
 			if(fileUtils.isFile(path)){
 				libs.push(path);

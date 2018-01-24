@@ -2,9 +2,16 @@
     "name": "v3project",
     "version": "1.0.0",
     "description": "v3项目",
+    "chromiumpath": "Chromium核心的Chromium浏览器(推荐)或chrome浏览器的路径地址",
     "main": "index.js",
     "scripts": {
         "build": "webpack",
+        "v3init": "v3 init",
+        "v3init_n": "v3 init -n",
+        "v3deploy": "v3 deploy",
+        "v3install": "v3 install",
+        "v3sync": "v3 sync",
+        "v3update": "v3 update",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "作者",
@@ -24,14 +31,14 @@
         "webpack": "^3.10.0"
     },
     "v3Platform": {
-        "type": "插件类型：{控件，规则，函数}",
+        "type": "插件类型：{[widget]控件,[rule]规则,[func]函数}",
         "matchVersion": "匹配的版本号",
         "minMatchVersion": "最小匹配版本号",
         "account": "Vstore账号",
         "pwd": "Vstore密码",
         "out": "jar生成目录",
-        "sources": "vui源目录（数组）",
-        "libType": "部署库：{dev，test}",
+        "sources": "vui源目录[可以为目录数组]",
+        "libType": "部署库：{dev,test}",
         "server": "本地环境地址",
         "componentDefines": {
             "vuiTreeExtra": {
