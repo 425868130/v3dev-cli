@@ -7,7 +7,7 @@
     "scripts": {
         "build": "webpack",
         "v3init": "v3 init",
-        "v3init_n": "v3 init -n",
+        "v3init-n": "v3 init -n",
         "v3deploy": "v3 deploy",
         "v3install": "v3 install",
         "v3sync": "v3 sync",
@@ -44,7 +44,7 @@
             "vuiTreeExtra": {
                 "dataProp": "数据源属性名",
                 "dataType": "数据类型",
-                "treeStructProp": "fieldMapping"
+                "treeStructProp": "树形结构属性"
             }
         }
     }

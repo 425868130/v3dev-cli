@@ -27,7 +27,6 @@ Environment.prototype = {
 	getDealedPackageObj : function(){
 		var v3Platform = this.packageObj.v3Platform;
 		if(v3Platform){
-			v3Platform.account = null;
 			v3Platform.pwd = null;
 		}
 		return this.packageObj;

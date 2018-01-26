@@ -8,6 +8,10 @@ var fastSettingQuestion=[
       message:'项目名称:',
       name:'name',
       default:'v3project'
+    },{
+      message:'chromiumpath',
+      name:'chromiumpath',
+      default:'Chromium核心的Chromium浏览器(推荐)或chrome浏览器的路径地址'
     },
     {
       type:'list',
@@ -80,7 +84,7 @@ var fastSettingQuestion=[
     },
     {
       message:'treeStructProp:',
-      default:'树形结构树形',
+      default:'树形结构属性',
       name:'v3.componentDefines.vuiTreeExtra.treeStructProp'
     }
   ]

@@ -21,7 +21,7 @@ if(!pathUtils.isFile(packcof.chromiumpath)){
 	console.log('chromiumpath为本机chromium或chrome浏览器的执行文件路径!');
 	return;
 }
-
+console.log('解析中......');
 puppeteer.launch({headless: true,executablePath:packcof.chromiumpath}).then(function(browser){
 	var err = function(e){
 		console.log(e);
