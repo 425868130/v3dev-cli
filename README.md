@@ -1,15 +1,11 @@
-# V 平台二次开发工具
+# ![](https://raw.githubusercontent.com/425868130/v3dev-cli/master/src/resources/logo.png) V 平台二次开发工具
 [![NPM Version](http://img.shields.io/npm/v/v3dev-cli.svg?style=flat)](https://www.npmjs.org/package/v3dev-cli)
 [![NPM Downloads](https://img.shields.io/npm/dm/v3dev-cli.svg?style=flat)](https://www.npmjs.org/package/v3dev-cli)  
 
 ## 全局安装  
-
         npm install v3dev-cli -g 
-
 ## 局部安装  
-
-        $npm install v3dev-cli --save
-
+        npm install v3dev-cli --save
 ## 命令列表  
 >v3 -h 帮助命令  
 v3 init  项目初始化,执行此命令时将在项目路径搜索package.json配置文件,如果有配置文件则可以将当前项目转换为v3项目,若没有则可以根据提示信息创建一个v3项目模板.  
