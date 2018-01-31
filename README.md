@@ -14,6 +14,7 @@ v3  install 打包并安装v3平台插件到本地.
 v3 deploy 打包v3平台插件并部署到Vstore.  
 v3 update更新插件到V3服务器.  
 v3 sync 同步V3服务器中的Node.js插件到本地.   
+v3 switch 切换js解析插件,可选的插件有phantomJS与puppeteer.js,其中phantomJS安装时会<font color=#ea6f5a>下载约17M的解析器</font>,puppeteer.js要求本机装有<font color=#ea6f5a>基于chromium核心的浏览器,且内核版本不低于49. 7674</font>.
 
 * 局部安装时对应的命令为:  
 >v3&nbsp;init &nbsp; &nbsp;>>> &nbsp; &nbsp;npm run v3init  
@@ -22,6 +23,7 @@ v3 install &nbsp; &nbsp;>>> &nbsp; &nbsp;npm run v3install
 v3 deploy &nbsp; &nbsp;>>> &nbsp; &nbsp;npm run v3deploy  
 v3 update &nbsp; &nbsp;>>> &nbsp; &nbsp;npm run v3update  
 v3 sync &nbsp; &nbsp;>>> &nbsp; &nbsp;npm run v3sync  
+v3 switch &nbsp; &nbsp;>>> &nbsp; &nbsp;npm run v3switch
 * 模板项目提供一个局部webpack命令,执行npm run build即可  
 
 ## 关于package.json配置项说明
@@ -71,5 +73,7 @@ v3 sync &nbsp; &nbsp;>>> &nbsp; &nbsp;npm run v3sync
 ```json
 "chromiumpath": "F:\\chrome-win32\\chrome.exe"
 ```
+* 已知bug:
+v3 sync命令暂无法使用
 
 编辑于:2018-1-26

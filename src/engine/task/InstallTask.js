@@ -1,12 +1,21 @@
+/**
+ * @author xdh
+ * @modify  xujw 2018-1-31
+ * install命令执行任务,调用对应的解析器,解析js脚本,找出所有用户自定义的vui组件
+ */
 var ITask = require("../ITask");
 var objectUtils = require("../../utils/ObjectUtils");
 var pathUtils = require("../../utils/PathUtils");
 var fileUtils = require("../../utils/FileUtils");
 var childProcess = require("child_process");
 var environment = require("../../utils/Environment");
-var V3PlatformJar = require("../../jar/V3PlatformJar")
+var V3PlatformJar = require("../../jar/V3PlatformJar");
 var Q = require("q");
 var fs = require("fs");
+const config=require('../../../package.json');
+const path = require('path');
+/* 解析器路径 */
+const analyzerPath = __dirname.substr(0,__dirname.lastIndexOf(path.sep))+path.sep+"analyzer"+path.sep;
 
 var InstallTask = function(params){
 	this.deferred = Q.defer();
@@ -16,6 +25,20 @@ var InstallTask = function(params){
 }
 
 objectUtils.extend(InstallTask.prototype,ITask.prototype);
+/* 根据配置文件运行不同的分析器 */
+InstallTask.prototype.runAnalyzer=function(analyzer,jsFiles){
+	var child = childProcess.fork(analyzerPath+analyzer,jsFiles);
+	child.on("message",(function(task){
+		return function(obj){
+			console.log("插件分析完成");
+			/* 由于phantom插件只能返回字符串类型数据,需转换为对象类型 */
+			if(typeof obj == "string"){
+				obj = JSON.parse(obj);
+			}
+			task.generateJar(obj);
+		};
+	})(this));
+}
 
 InstallTask.prototype.exe = function(ctx){
 	this.engineContext = ctx;
@@ -25,16 +48,15 @@ InstallTask.prototype.exe = function(ctx){
 		var jsFiles = fileUtils.filte(this.libs,".js");
 		if(jsFiles.length>0){
 			this.logResources(jsFiles);
-			var child = childProcess.fork(__dirname+"/../../browser/Puppeteer.js",jsFiles);
-			console.log("开始分析插件，请稍候...");
-			child.on("message",(function(task){
-				return function(obj){
-					console.log("插件分析完成");
-					task.generateJar(obj);
-				};
-			})(this));
+			console.log("开始分析插件,请稍候...");
+			if(config.analyzer=='puppeteer'){
+				this.runAnalyzer('Puppeteer.js',jsFiles);
+			}
+			else if(config.analyzer=='phantomJS'){
+				this.runAnalyzer('Phantom.js',jsFiles);
+			}
 		}else{
-			console.warn("WARN: 未检索到任何可用的js资源，v平台插件打包将终止！");
+			console.warn("WARN: 未检索到任何可用的js资源，v平台插件打包将终止!");
 			this.deferred.reject();
 		}
 	}

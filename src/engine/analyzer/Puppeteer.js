@@ -3,8 +3,9 @@ const fs = require("fs");
 /* 获取当前命令行路径 */
 const cmdPath=process.cwd();
 var extraLibs = process.argv.slice(2);
-var pathUtils = require('../utils/PathUtils');
+var pathUtils = require('../../utils/PathUtils');
 console.log("开始解析插件资源...");
+console.log(extraLibs);
 /* 尝试读取命令行目录下的package.json文件 */
 var packcof;
 try{
@@ -28,7 +29,7 @@ puppeteer.launch({headless: true,executablePath:packcof.chromiumpath}).then(func
 		browser.close();
 	};
 	browser.newPage().then(function(page){
-		page.goto("file://"+__dirname+"/index.html").then(function(){
+		page.goto("file:///"+__dirname+"/browser/index.html").then(function(){
 			var promises = [];
 			for(var i=0,l=extraLibs.length;i<l;i++){
 				var content = fs.readFileSync(extraLibs[i],'utf-8');

@@ -1,6 +1,6 @@
 {
 	"name": "v3dev-cli",
-	"version": "1.0.51",
+	"version": "1.0.72",
 	"description": "vui 二次开发脚手架",
 	"preferGlobal": true,
 	"bin": {
@@ -9,7 +9,8 @@
 		"v3-install": "bin/v3-install",
 		"v3-deploy": "bin/v3-deploy",
 		"v3-update": "bin/v3-update",
-		"v3-sync": "bin/v3-sync"
+		"v3-sync": "bin/v3-sync",
+		"v3-switch": "bin/v3-switch"
 	},
 	"scripts": {
 		"install": "node install.js"
@@ -36,5 +37,6 @@
 	},
 	"engines": {
 		"node": ">=6.0.0"
-	}
+	},
+	"analyzer": "puppeteer"
 }

@@ -2,7 +2,6 @@
     "name": "v3project",
     "version": "1.0.0",
     "description": "v3项目",
-    "chromiumpath": "Chromium核心的Chromium浏览器(推荐)或chrome浏览器的路径地址",
     "main": "index.js",
     "scripts": {
         "build": "webpack",
@@ -12,6 +11,7 @@
         "v3install": "v3 install",
         "v3sync": "v3 sync",
         "v3update": "v3 update",
+        "v3switch": "v3 switch",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "作者",
