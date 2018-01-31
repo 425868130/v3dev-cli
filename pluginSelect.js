@@ -27,7 +27,6 @@ function puppeteerInstall(){
     const puppeteerVersion = "0.10.2";
     cliconfig.analyzer = pluginList[1];
     fs.writeFileSync(__dirname+"/package.json",JSON.stringify(cliconfig,null, "\t"));
-    console.log('正在安装puppeteer插件......');
     exec("npm install puppeteer@"+puppeteerVersion,{cwd:__dirname,env:{PUPPETEER_SKIP_CHROMIUM_DOWNLOAD:1}},(err,stdout,stderr)=>{
         console.log(stdout);
            /* 安装完成后清空puppeteer的install.js防止后续下载chrome浏览器 */
@@ -53,7 +52,6 @@ function puppeteerInstall(){
 function phantomInstall(){
     cliconfig.analyzer = pluginList[0];
     fs.writeFileSync(__dirname+"/package.json",JSON.stringify(cliconfig,null, "\t"));
-    console.log('正在安装phantomJS插件......');
     exec('cnpm install phantomjs-prebuilt --save',{cwd:__dirname},(err,stdout,stderr)=>{
         console.log(stdout);
         if(!err){

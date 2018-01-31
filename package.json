@@ -1,6 +1,6 @@
 {
 	"name": "v3dev-cli",
-	"version": "1.0.72",
+	"version": "1.0.74",
 	"description": "vui 二次开发脚手架",
 	"preferGlobal": true,
 	"bin": {

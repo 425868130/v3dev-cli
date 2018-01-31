@@ -20,7 +20,7 @@ const prompt = require('inquirer').prompt;
  try{
   packcof=require(cmdPath+"/package.json");
  }catch(e){
-  packcof = undefined;
+  packcof = false;
  }
 /* 当前执行的命令是否带有选项,默认为false */
 var hasOption = false;
@@ -84,10 +84,10 @@ function createProject(){
     }
     var needstore =false;
       /* 查看项目构建前是否有v3devcli的依赖,如果有则将依赖还原,防止因模板项目覆盖造成依赖丢失 */
-      if(undefined != packcof.dependencies['v3dev-cli']){
+      if(typeof packcof.dependencies['v3dev-cli']!="undefined"){
         pakconftmpl.dependencies['v3dev-cli']=packcof.dependencies['v3dev-cli'];
         needstore=true;
-      }else if(undefined!=packcof.devDependencies['v3dev-cli']){
+      }else if(typeof packcof.devDependencies['v3dev-cli']!="undefined"){
         pakconftmpl.devDependencies['v3dev-cli']=packcof.devDependencies['v3dev-cli'];
         needstore=true;
       }
