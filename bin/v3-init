@@ -84,12 +84,14 @@ function createProject(){
     }
     var needstore =false;
       /* 查看项目构建前是否有v3devcli的依赖,如果有则将依赖还原,防止因模板项目覆盖造成依赖丢失 */
-      if(typeof packcof.dependencies['v3dev-cli']!="undefined"){
-        pakconftmpl.dependencies['v3dev-cli']=packcof.dependencies['v3dev-cli'];
-        needstore=true;
-      }else if(typeof packcof.devDependencies['v3dev-cli']!="undefined"){
-        pakconftmpl.devDependencies['v3dev-cli']=packcof.devDependencies['v3dev-cli'];
-        needstore=true;
+      if(packcof){
+        if('dependencies' in packcof &&'v3dev-cli' in packcof.dependencies){
+          pakconftmpl.dependencies['v3dev-cli']=packcof.dependencies['v3dev-cli'];
+          needstore=true;
+        }else if('devDependencies' in packcof&&'v3dev-cli' in packcof.devDependencies){
+          pakconftmpl.devDependencies['v3dev-cli']=packcof.devDependencies['v3dev-cli'];
+          needstore=true;
+        }
       }
       if(analyzerMode == "puppeteer"){
         pakconftmpl.chromiumpath="Chromium核心的Chromium浏览器(推荐)或chrome浏览器的路径地址";
@@ -132,7 +134,7 @@ function settingMenu(config){
 }
 /* 执行npm install命令给项目添加依赖 */
 function runPackageInstall(){
-  var cmdStr = 'npm install';
+  var cmdStr = 'npm --registry https://registry.npm.taobao.org install';
   console.log('>'+cmdStr);
   console.log('正在初始化npm依赖,请稍后.....');
   exec(cmdStr, {cwd:cmdPath,env:{PUPPETEER_SKIP_CHROMIUM_DOWNLOAD:1}},function(err,stdout,stderr){

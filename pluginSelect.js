@@ -13,11 +13,10 @@ var cliconfig = require(__dirname+'/package');
 var pluginList=['phantomJS','puppeteer'];
 /* 获取当前命令行路径 */
 const cmdPath=process.cwd();
-var userProjectDir=cmdPath.substr(0,cmdPath.indexOf('node_modules'));
 /* 尝试读取命令行目录下的package.json文件 */
 var packcof;
 try{
- packcof=require(userProjectDir+"/package.json");
+ packcof=require(cmdPath+"/package.json");
 }catch(e){
  packcof = false;
 }
@@ -27,12 +26,14 @@ function puppeteerInstall(){
     const puppeteerVersion = "0.10.2";
     cliconfig.analyzer = pluginList[1];
     fs.writeFileSync(__dirname+"/package.json",JSON.stringify(cliconfig,null, "\t"));
-    exec("npm install puppeteer@"+puppeteerVersion,{cwd:__dirname,env:{PUPPETEER_SKIP_CHROMIUM_DOWNLOAD:1}},(err,stdout,stderr)=>{
+    exec("npm --registry https://registry.npm.taobao.org install puppeteer@"+puppeteerVersion,{cwd:__dirname,env:{PUPPETEER_SKIP_CHROMIUM_DOWNLOAD:1}},(err,stdout,stderr)=>{
         console.log(stdout);
            /* 安装完成后清空puppeteer的install.js防止后续下载chrome浏览器 */
            try{
             fs.writeFileSync(__dirname+'/node_modules/puppeteer/install.js'," ");
         }catch(e){}
+        console.log();
+        console.log('插件安装完成.');
         /* 如果用户项目存在package.json则添加chromepath */
         if(packcof){
             prompt([{
@@ -41,23 +42,21 @@ function puppeteerInstall(){
                 default:'Chromium核心的Chromium浏览器(推荐)或chrome浏览器的路径地址'
               }]).then(answers=>{
                   packcof.chromiumpath = answers.chromiumpath;
-                  fs.writeFile(userProjectDir+"/package.json",JSON.stringify(packcof,null, "\t"));
+                  fs.writeFile(cmdPath+"/package.json",JSON.stringify(packcof,null, "\t"));
               });
         }
-        console.log();
-        console.log('插件安装完成.');
     });
 }
 /* 安装phantomJS插件 */
 function phantomInstall(){
     cliconfig.analyzer = pluginList[0];
     fs.writeFileSync(__dirname+"/package.json",JSON.stringify(cliconfig,null, "\t"));
-    exec('cnpm install phantomjs-prebuilt --save',{cwd:__dirname},(err,stdout,stderr)=>{
+    exec('npm --registry https://registry.npm.taobao.org install phantomjs-prebuilt --save',{cwd:__dirname},(err,stdout,stderr)=>{
         console.log(stdout);
         if(!err){
-            if(packcof&&packcof.chromiumpath){
+            if(packcof&&'chromiumpath' in packcof){
                 delete packcof.chromiumpath;
-                fs.writeFile(userProjectDir+"/package.json",JSON.stringify(packcof,null, "\t"));
+                fs.writeFile(cmdPath+"/package.json",JSON.stringify(packcof,null, "\t"));
             }
             console.log();
             console.log('插件安装完成');
