@@ -14,7 +14,7 @@ v3  install 打包并安装v3平台插件到本地.
 v3 deploy 打包v3平台插件并部署到Vstore.  
 v3 update更新插件到V3服务器.  
 v3 sync 同步V3服务器中的Node.js插件到本地.   
-v3 switch 切换js解析插件,可选的插件有phantomJS与puppeteer.js,其中phantomJS安装时会<font color=#ea6f5a>下载约17M的解析器</font>,puppeteer.js要求本机装有<font color=#ea6f5a>基于chromium核心的浏览器,且内核版本不低于49. 7674</font>.
+v3 switch 切换js解析插件,可选的插件有phantomJS与puppeteer.js,其中phantomJS安装时会<span style="color:#ea6f5a">下载约17M的解析器</span>,puppeteer.js要求本机装有<span style="color:#ea6f5a">基于chromium核心的浏览器,且内核版本不低于49. 7674</span>.
 
 * 局部安装时对应的命令为:  
 >v3&nbsp;init &nbsp; &nbsp;>>> &nbsp; &nbsp;npm run v3init  
@@ -83,9 +83,13 @@ v3 switch &nbsp; &nbsp;>>> &nbsp; &nbsp;npm run v3switch
 解决方法:到当前安装目录下找到v3dev-cli文件夹删除,然后重新安装即可.全局安装时为nodeJS的安装目录下的node_modules,局部安装时在你项目的node_modules目录下.
 <img src="https://raw.githubusercontent.com/425868130/v3dev-cli/master/src/resources/QA/QA1/%E5%88%A0%E9%99%A4%E5%8C%85%E6%96%87%E4%BB%B6.png" width="70%" height="50%"/>
 
+* Q:执行v3命令时提示Cannot find module .....
+<img src="https://raw.githubusercontent.com/425868130/v3dev-cli/master/src/resources/QA/QA2/module%E6%9C%AA%E6%89%BE%E5%88%B0.png"/>  
+
+解决方法:在项目当前路径执行npm install即可.如果还有问题,请检查项目的package.json文件的dependencies和devDependencies节点的依赖包是否正确
+
+* 已知bug:  
+<p style="color:#ea6f5a">v3 sync命令暂无法使用</p>
 
 
-* 已知bug:
-v3 sync命令暂无法使用
-
-编辑于:2018-1-26
+修改于:2018-1-31
