@@ -73,6 +73,18 @@ v3 switch &nbsp; &nbsp;>>> &nbsp; &nbsp;npm run v3switch
 ```json
 "chromiumpath": "F:\\chrome-win32\\chrome.exe"
 ```
+快速获取浏览器路径:右键浏览器图标查看属性  
+<img src="https://raw.githubusercontent.com/425868130/v3dev-cli/master/src/resources/QA/%E8%8E%B7%E5%8F%96%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%AF%E5%BE%84.png" width="70%" height="50%"/>  
+
+
+## FQA  
+* Q: 安装时提示 Missing write access to xxx :  
+<img src="https://raw.githubusercontent.com/425868130/v3dev-cli/master/src/resources/QA/QA1/QQ%E5%9B%BE%E7%89%8720180126154330.png"/>  
+解决方法:到当前安装目录下找到v3dev-cli文件夹删除,然后重新安装即可.全局安装时为nodeJS的安装目录下的node_modules,局部安装时在你项目的node_modules目录下.
+<img src="https://raw.githubusercontent.com/425868130/v3dev-cli/master/src/resources/QA/QA1/%E5%88%A0%E9%99%A4%E5%8C%85%E6%96%87%E4%BB%B6.png" width="70%" height="50%"/>
+
+
+
 * 已知bug:
 v3 sync命令暂无法使用
 
