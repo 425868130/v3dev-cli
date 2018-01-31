@@ -83,10 +83,13 @@ v3 switch &nbsp; &nbsp;>>> &nbsp; &nbsp;npm run v3switch
 解决方法:到当前安装目录下找到v3dev-cli文件夹删除,然后重新安装即可.全局安装时为nodeJS的安装目录下的node_modules,局部安装时在你项目的node_modules目录下.
 <img src="https://raw.githubusercontent.com/425868130/v3dev-cli/master/src/resources/QA/QA1/%E5%88%A0%E9%99%A4%E5%8C%85%E6%96%87%E4%BB%B6.png" width="70%" height="50%"/>
 
-* Q:执行v3命令时提示Cannot find module .....
+* Q: 执行v3命令时提示Cannot find module .....
 <img src="https://raw.githubusercontent.com/425868130/v3dev-cli/master/src/resources/QA/QA2/module%E6%9C%AA%E6%89%BE%E5%88%B0.png"/>  
 
-解决方法:在项目当前路径执行npm install即可.如果还有问题,请检查项目的package.json文件的dependencies和devDependencies节点的依赖包是否正确
+解决方法:在项目当前路径执行npm install即可.如果还有问题,请检查项目的package.json文件的dependencies和devDependencies节点的依赖包是否正确  
+* Q: v3 init执行npm初始化时提示权限不足,或执行npm install 时提示"operation not permitted ......"
+<img src="https://raw.githubusercontent.com/425868130/v3dev-cli/master/src/resources/QA/QA3/%E6%B2%A1%E6%9C%89%E8%AF%BB%E5%86%99%E6%9D%83%E9%99%90.png"/>  
+解决方法: 删除当前项目的node_modules文件夹,然后重新执行npm install命令即可
 
 * 已知bug:  
 <p style="color:#ea6f5a">v3 sync命令暂无法使用</p>
