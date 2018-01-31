@@ -6,6 +6,8 @@
         npm install v3dev-cli -g 
 ## 局部安装  
         npm install v3dev-cli --save
+
+### 注意:在安装本依赖包时请勿使用cnpm替代npm,cnpm安装依赖不完全,将导致工具运行异常,对于其他依赖包,您可以正常使用cnpm.
 ## 命令列表  
 >v3 -h 帮助命令  
 v3 init  项目初始化,执行此命令时将在项目路径搜索package.json配置文件,如果有配置文件则可以将当前项目转换为v3项目,若没有则可以根据提示信息创建一个v3项目模板.  

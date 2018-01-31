@@ -34,15 +34,16 @@ function puppeteerInstall(){
         }catch(e){}
         console.log();
         console.log('插件安装完成.');
-        /* 如果用户项目存在package.json则添加chromepath */
-        if(packcof){
+        /* 如果用户项目存在package.json则添加chromepath,
+        全局安装时packcof会加载到本工具自身的配置文件,此时不修改 */
+        if(packcof&&packcof.name!="v3dev-cli"){
             prompt([{
                 message:'chromiumpath:',
                 name:'chromiumpath',
                 default:'Chromium核心的Chromium浏览器(推荐)或chrome浏览器的路径地址'
               }]).then(answers=>{
                   packcof.chromiumpath = answers.chromiumpath;
-                  fs.writeFile(cmdPath+"/package.json",JSON.stringify(packcof,null, "\t"));
+                  fs.writeFile(cmdPath+"/package.json",JSON.stringify(packcof,null, "\t"),(err,stdout,stderr)=>{});
               });
         }
     });
@@ -54,9 +55,9 @@ function phantomInstall(){
     exec('npm --registry https://registry.npm.taobao.org install phantomjs-prebuilt --save',{cwd:__dirname},(err,stdout,stderr)=>{
         console.log(stdout);
         if(!err){
-            if(packcof&&'chromiumpath' in packcof){
+            if(packcof&&packcof.name!="v3dev-cli"&&'chromiumpath' in packcof){
                 delete packcof.chromiumpath;
-                fs.writeFile(cmdPath+"/package.json",JSON.stringify(packcof,null, "\t"));
+                fs.writeFile(cmdPath+"/package.json",JSON.stringify(packcof,null, "\t"),(err,stdout,stderr)=>{});
             }
             console.log();
             console.log('插件安装完成');
